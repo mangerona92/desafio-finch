@@ -2,7 +2,7 @@ import { createActions, createReducer } from "reduxsauce";
 
 export const { Types, Creators } = createActions({
   setProductsList: ["product"],
-  prodcutsList: [],
+  productsList: [],
   showAlertSuccess: ["isVisible"]
 });
 
@@ -14,7 +14,7 @@ const INITIAL_STATE = [
 
 const setProductsList = (state = INITIAL_STATE, action) => ({
   ...state,
-  prodcutsList: action.characters
+  productsList: action.products
 });
 
 const setShowAlertSuccess = (state = INITIAL_STATE, action) => {
