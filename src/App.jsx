@@ -1,14 +1,19 @@
-import React from "react";
-import { Provider } from "react-redux";
-import store from "./store";
-import Menu from './components/menu'
-import Router from './router'
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import store from './store';
+import Menu from './components/menu';
+import Routes from './routes';
 
 function App() {
   return (
     <Provider store={store}>
-      <Menu />
-      <Router />
+      <Router>
+        <>
+          <Menu />
+          <Routes />
+        </>
+      </Router>
     </Provider>
   );
 }
