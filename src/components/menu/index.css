@@ -1,0 +1,11 @@
+.menu .menu-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 130px;
+}
+
+.menu .menu-item {
+  height: 50px;
+  background-color: blue;
+}
