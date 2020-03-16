@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import styles from './index.module.css';
+
 import {
   ProductsListPage,
   ProductsDetailsPage,
@@ -8,14 +10,16 @@ import {
 
 function Routes() {
   return (
-    <Switch>
-      <Route path="/">
-        <ProductsListPage />
-      </Route>
-      <Route path="/product-details">
-        <ProductsDetailsPage />
-      </Route>
-    </Switch>
+    <div className={styles.container}>
+      <Switch>
+        <Route path="/">
+          <ProductsListPage />
+        </Route>
+        <Route path="/product-details">
+          <ProductsDetailsPage />
+        </Route>
+      </Switch>
+    </div>
   );
 }
 

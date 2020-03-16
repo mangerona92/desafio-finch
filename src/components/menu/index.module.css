@@ -1,0 +1,37 @@
+.menuContainer {
+  flex: 1;
+  width: 130px;
+  height: 100%;
+}
+
+.menuItem {
+  flex: 1;
+  background-color: #FFFFFF;
+  text-decoration:none;
+  text-align: center;
+  align-items: flex-end;
+}
+
+.linkMenu {
+  text-decoration: none;
+}
+
+.iconMenu{
+  margin-top: 25px
+}
+
+
+.textMenu{
+  color: #7D7D7D;
+  opacity: 1;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.iconLogoFooter{
+  top: 100%;
+}
+
+.text{
+  width: 80%;
+}
