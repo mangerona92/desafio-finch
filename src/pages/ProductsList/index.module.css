@@ -1,0 +1,6 @@
+.productList{
+  width: 100%;
+  display: inline-block;
+  height: 100%;
+  box-sizing: border-box;
+}

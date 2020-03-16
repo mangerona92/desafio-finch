@@ -1,10 +1,18 @@
 import React from 'react';
+import styles from './index.module.css';
 
 function ProductsList() {
   return (
-    <>
-      oi
-    </>
+    <div className={styles.productList}>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+      <p> oi </p>
+    </div>
   );
 }
 
