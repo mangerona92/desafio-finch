@@ -4,16 +4,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import Menu from './components/menu';
 import Routes from './routes';
-import './App.css';
+
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
-        <>
-          <Menu />
-          <Routes />
-        </>
+        <Menu />
+        <Routes />
       </Router>
     </Provider>
   );
