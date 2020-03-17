@@ -14,34 +14,34 @@ const Menu = () => (
       <div className={styles.menuList}>
         <div className={styles.menuItem}>
           <Link className={styles.linkMenu} to="/">
-            <img src={codelogo} alt="codelogo" className={styles.iconMenu} />
+            <img src={codelogo} alt="Logo da Empresa" className={styles.iconMenu} />
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/">
-            <img src={supplies} alt="supplies" className={styles.iconMenu} />
+          <Link className={styles.linkMenu} to="/?query=all">
+            <img src={supplies} alt="Listar Todos os Produtos" className={styles.iconMenu} />
             <p className={styles.textMenu}>Todos</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/">
-            <img src={box} alt="box" className={styles.iconMenu} />
-            <p className={styles.textMenu}>Favoritos</p>
+          <Link className={styles.linkMenu} to="/?query=exclusives">
+            <img src={box} alt="Listar os Itens Exclusivos" className={styles.iconMenu} />
+            <p className={styles.textMenu}>Exclusivos</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/">
-            <img src={gift} alt="gift-box" className={styles.iconMenu} />
+          <Link className={styles.linkMenu} to="/?query=promotion">
+            <img src={gift} alt="Mostrar Promoções" className={styles.iconMenu} />
             <p className={styles.textMenu}>Promoção</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/">
-            <img src={recommended} alt="recommended" className={styles.iconMenu} />
+          <Link className={styles.linkMenu} to="/?query=favorites">
+            <img src={recommended} alt="Favoritos" className={styles.iconMenu} />
             <p className={styles.textMenu}>Favoritos</p>
           </Link>
         </div>
