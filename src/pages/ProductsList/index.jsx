@@ -3,7 +3,9 @@ import styles from './index.module.css';
 import Title from '../../components/Header/Title';
 import Search from '../../components/Header/Search';
 import Card from '../../components/Card';
-import { PAGE_TITLE, PAGE_SUBTITLE, PAGE_DESCRIPTION } from '../../enum';
+import {
+  PAGE_TITLE, PAGE_SUBTITLE, PAGE_DESCRIPTION, PAGE_VALUE, PAGE_FAVORITE, PAGE_PRODUCTSDESCRIPTION, PAGE_PRODUCT,
+} from '../../enum';
 import { useQuery } from '../../hooks';
 
 function ProductsList() {
@@ -11,6 +13,10 @@ function ProductsList() {
   const getTitle = () => PAGE_TITLE[query().get('query')] || PAGE_TITLE.all;
   const getSubTitle = () => PAGE_SUBTITLE[query().get('query')] || PAGE_SUBTITLE.all;
   const getDescription = () => PAGE_DESCRIPTION[query().get('query')] || PAGE_DESCRIPTION.all;
+  const getValue = () => PAGE_VALUE.value;
+  const getFavorite = () => PAGE_FAVORITE.favorite;
+  const getProduct = () => PAGE_PRODUCT.product;
+  const getProductDescription = () => PAGE_PRODUCTSDESCRIPTION.productDescription;
   return (
     <div>
       <div className={styles.productList}>
@@ -19,14 +25,7 @@ function ProductsList() {
       </div>
       <hr className={styles.hrStyle} />
       <div className={styles.containerProductsList}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card value={getValue()} favorite={getFavorite()} productDescription={getProductDescription()} product={getProduct()} />
       </div>
     </div>
 

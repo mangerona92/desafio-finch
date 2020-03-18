@@ -2,30 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
 import phone from '../../assets/phone.png';
-import favorite from '../../assets/favorite.png';
 
 function Card(props) {
-  const { card } = props;
+  const { value, favorite, product, productDescription } = props;
   return (
     <>
       <div className={styles.card}>
         <img src={phone} alt="imagem fone" />
         <div className={styles.container}>
-          <h4 className={styles.marginText}>
-            <b className={styles.colorFont}>
-              R$ 198,00
+          <h4 className={styles.divValue}>
+            <b className={styles.textValue}>
+              { value }
             </b>
             <div className={styles.btnFavorites}>
               <label for="favorite" className={styles.switch}>
                 <input id="favorite" type="checkbox" />
-                <span className={styles.slider} />
+                <span className={`${styles.slider} ${styles.round}`} />
               </label>
-              <span className={styles.textFavorites}> tornar favorito</span>
+              <span className={styles.textFavorites}>
+                { favorite }
+              </span>
             </div>
           </h4>
-          <h2 className={styles.productText}>Fone Bluetooth XPTO</h2>
+          <h2 className={styles.productText}>
+            { product }
+          </h2>
           <div className={styles.textFavorites}>
-            Aparelho intra auricular de som em alta definição sem fio para os viciados de plantãoa asdfsdaf sdafsdafdsafsadfsda
+            { productDescription }
           </div>
         </div>
       </div>
@@ -34,7 +37,10 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  card: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  favorite: PropTypes.string.isRequired,
+  product: PropTypes.string.isRequired,
+  productDescription: PropTypes.string.isRequired,
 };
 
 export default Card;

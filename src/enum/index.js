@@ -19,8 +19,29 @@ export const PAGE_DESCRIPTION = {
   favorites: 'Listagem de produtos marcados como favoritos - clique no produto desejado para saber mais',
 };
 
+export const PAGE_VALUE = {
+  value: 'R$ 198,00',
+};
+
+export const PAGE_FAVORITE = {
+  favorite: 'tornar favorito',
+};
+
+export const PAGE_PRODUCT = {
+  product: 'Fone Bluetooth XPTO',
+};
+
+export const PAGE_PRODUCTSDESCRIPTION = {
+  productDescription: 'Aparelho intra auricular de som em alta definição sem fio para os viciados de plantãoa',
+};
+
+
 export default {
   PAGE_TITLE,
   PAGE_SUBTITLE,
   PAGE_DESCRIPTION,
+  PAGE_VALUE,
+  PAGE_FAVORITE,
+  PAGE_PRODUCTSDESCRIPTION,
+  PAGE_PRODUCT,
 };
