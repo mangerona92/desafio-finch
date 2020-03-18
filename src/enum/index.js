@@ -36,7 +36,7 @@ export const PAGE_PRODUCT = {
 };
 
 export const PAGE_PRODUCTSDESCRIPTION = {
-  productDescription: 'Aparelho intra auricular de som em alta definição sem fio para os viciados de plantãoa',
+  productDescription: 'Aparelho intra auricular de som em alta definição sem fio para os viciados de plantão',
 };
 
 
