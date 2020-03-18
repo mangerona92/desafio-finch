@@ -13,10 +13,10 @@ function Routes() {
     <div className={styles.container}>
       <Switch>
         <Route path="/">
-          <ProductsListPage />
+          <ProductsDetailsPage />
         </Route>
         <Route path="/product-details">
-          <ProductsDetailsPage />
+          <ProductsListPage />
         </Route>
       </Switch>
     </div>
