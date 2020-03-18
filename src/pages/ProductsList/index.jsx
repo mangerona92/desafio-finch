@@ -4,7 +4,14 @@ import Title from '../../components/Header/Title';
 import Search from '../../components/Header/Search';
 import Card from '../../components/Card';
 import {
-  PAGE_STATUS, PAGE_TITLE, PAGE_SUBTITLE, PAGE_DESCRIPTION, PAGE_VALUE, PAGE_FAVORITE, PAGE_PRODUCTSDESCRIPTION, PAGE_PRODUCT,
+  PAGE_TITLE,
+  PAGE_SUBTITLE,
+  PAGE_DESCRIPTION,
+  PAGE_STATUS,
+  PAGE_VALUE,
+  PAGE_FAVORITE,
+  PAGE_PRODUCTSDESCRIPTION,
+  PAGE_PRODUCT,
 } from '../../enum';
 import { useQuery } from '../../hooks';
 
