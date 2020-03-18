@@ -4,11 +4,18 @@ import styles from './index.module.css';
 import phone from '../../assets/phone.png';
 
 function Card(props) {
-  const { value, favorite, product, productDescription } = props;
+  const { status, value, favorite, product, productDescription } = props;
   return (
     <>
       <div className={styles.card}>
-        <img src={phone} alt="imagem fone" />
+        <div className={styles.imageContainer}>
+          <img className={styles.imageProduct} src={phone} alt="imagem fone" />
+          <div className={styles.imageTag}>
+            <span>
+              { status }
+            </span>
+          </div>
+        </div>
         <div className={styles.container}>
           <h4 className={styles.divValue}>
             <b className={styles.textValue}>
@@ -37,6 +44,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
+  status: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   favorite: PropTypes.string.isRequired,
   product: PropTypes.string.isRequired,

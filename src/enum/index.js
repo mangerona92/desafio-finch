@@ -19,6 +19,10 @@ export const PAGE_DESCRIPTION = {
   favorites: 'Listagem de produtos marcados como favoritos - clique no produto desejado para saber mais',
 };
 
+export const PAGE_STATUS = {
+  status: 'promoção',
+};
+
 export const PAGE_VALUE = {
   value: 'R$ 198,00',
 };
@@ -40,6 +44,7 @@ export default {
   PAGE_TITLE,
   PAGE_SUBTITLE,
   PAGE_DESCRIPTION,
+  PAGE_STATUS,
   PAGE_VALUE,
   PAGE_FAVORITE,
   PAGE_PRODUCTSDESCRIPTION,
