@@ -1,7 +1,6 @@
 .title {
   display: flex;
-  margin-left: 100px;
-  margin-top: 40px;
+  flex-direction: row;
 }
 
 .subTitle {
@@ -10,6 +9,5 @@
 }
 
 .description {
-  margin-left: 100px;
   font-weight: 200;
 }

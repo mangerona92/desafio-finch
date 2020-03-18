@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './index.module.css';
 import Title from '../../components/Header/Title';
 import Search from '../../components/Header/Search';
+import Card from '../../components/Card';
 import { PAGE_TITLE, PAGE_SUBTITLE, PAGE_DESCRIPTION } from '../../enum';
 import { useQuery } from '../../hooks';
 
@@ -17,6 +18,16 @@ function ProductsList() {
         <Search />
       </div>
       <hr className={styles.hrStyle} />
+      <div className={styles.containerProductsList}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
     </div>
 
   );

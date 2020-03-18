@@ -6,18 +6,20 @@ function Title(props) {
   const { title, subTitle, description } = props;
   return (
     <>
-      <div className={styles.title}>
-        <h2>
-          { title }
-        </h2>
-        <h2 className={styles.subTitle}>
-          -
-          { subTitle }
-        </h2>
+      <div>
+        <div className={styles.title}>
+          <h2>
+            { title }
+          </h2>
+          <h2 className={styles.subTitle}>
+            -
+            { subTitle }
+          </h2>
+        </div>
+        <span className={styles.description}>
+          { description }
+        </span>
       </div>
-      <span className={styles.description}>
-        { description }
-      </span>
     </>
   );
 }

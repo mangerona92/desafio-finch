@@ -5,8 +5,8 @@
   margin: 0;
   height: 28px;
   width: 320px;
-  display: inline-block;
-  margin-left: 42%;
+  align-self: center;
+  margin-left: 620px;
 }
 
 .searchInput{

@@ -1,11 +1,16 @@
 .productList{
-  width: 100%;
-  display: inline-block;
-  height: 100%;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  margin-left: 65px;
+  margin-top: 15px;
 }
 
 .hrStyle {
-  width: 90%;
   margin-top: 50px;
+}
+
+.containerProductsList{
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -1,6 +1,6 @@
 .container {
-  float: left;
-  width: calc(100% - 140px);
+  display: flex;
   background: #F1F3F3;
-  height: 100%;
+  flex-wrap: wrap;
+  min-height: 968px;
 }
