@@ -31,9 +31,21 @@ function ProductsDetails() {
   }, []);
 
   useEffect(() => {
-    const test = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
-    setProduct(test);
+    const pdt = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
+
+    setProduct(pdt);
   }, [products]);
+
+  const getTechDetails = () => {
+    if (product.fichaTecnica && product.fichaTecnica.length) {
+      return product.fichaTecnica.map((f) => (
+        <li className={styles.liTechDetail} key={f.titulo}>
+          {`${f.titulo}: ${f.descricao}`}
+        </li>
+      ));
+    }
+    return [];
+  };
 
   const searchProducts = (valueToSearch) => {
     if (valueToSearch) {
@@ -122,12 +134,9 @@ function ProductsDetails() {
         <hr className={styles.hrStyle} />
         <div className={styles.contentListToken}>
           <div className={styles.listToken}>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
+            <ul className={styles.ulTechDetail}>
+              {getTechDetails()}
+            </ul>
           </div>
         </div>
       </div>

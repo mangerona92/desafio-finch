@@ -190,3 +190,14 @@ input:checked + .slider:before {
 .contLeft {
   display: flex;
 }
+
+.ulTechDetail {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
+  max-height: 180px;
+}
+
+.liTechDetail {
+  padding-right: 140px;
+}

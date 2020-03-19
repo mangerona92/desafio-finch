@@ -90,9 +90,10 @@ function ProductsList() {
 
     if (queryFilter) {
       newProductsList = newProductsList.filter((p) => {
-        return (p.nome.indexOf(queryFilter) !== -1)
-        || (p.decricaoCurta.indexOf(queryFilter) !== -1)
-        || (p.descricaoLonga.indexOf(queryFilter) !== -1);
+        const PRODUCT_NOT_FOUND = -1;
+        return (p.nome.indexOf(queryFilter) !== PRODUCT_NOT_FOUND)
+        || (p.decricaoCurta.indexOf(queryFilter) !== PRODUCT_NOT_FOUND)
+        || (p.descricaoLonga.indexOf(queryFilter) !== PRODUCT_NOT_FOUND);
       });
     }
 
