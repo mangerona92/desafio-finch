@@ -8,13 +8,13 @@ import returnicon from '../../assets/returnicon.png';
 import Search from '../../components/Header/Search';
 
 function ProductsDetails() {
-  function handlerClick() {
-    setFavoriteProduct(product.id);
-  }
   const dispatch = useDispatch();
   const params = useParams();
   const products = useSelector((state) => state.product.products);
   const [product, setProduct] = useState({});
+
+  const currencyFormat = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+
   useEffect(() => {
     if (!products.length) {
       requesterService.get('/v2/5d3b57023000005500a2a0a6')
@@ -28,6 +28,12 @@ function ProductsDetails() {
         });
     }
   }, []);
+
+  useEffect(() => {
+    const test = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
+    setProduct(test);
+  }, [products]);
+
   const setFavoriteProduct = (productId) => {
     const pdt = products.map((p) => {
       if (p.id === productId) {
@@ -37,11 +43,11 @@ function ProductsDetails() {
     });
     dispatch(setProductsList(pdt));
   };
-  useEffect(() => {
-    const test = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
-    console.log(test, products);
-    setProduct(test);
-  }, [products]);
+
+  const handlerClick = () => {
+    setFavoriteProduct(product.id);
+  };
+
   return (
     <>
       <div>
@@ -53,8 +59,7 @@ function ProductsDetails() {
               </h2>
               <h2 className={styles.price}>
                 -
-                R$
-                {product.valor}
+                {currencyFormat(product.valor)}
               </h2>
               <div className={styles.btnFavorites}>
                 <label htmlFor={product.id} className={styles.switch}>

@@ -11,6 +11,7 @@ import {
   PAGE_TITLE,
   PAGE_SUBTITLE,
   PAGE_DESCRIPTION,
+  PRODUCT_STATUS,
 } from '../../enum';
 
 export const useQuery = () => new URLSearchParams(useLocation().search);
@@ -21,14 +22,20 @@ function ProductsList() {
   const location = useLocation();
   const products = useSelector((state) => state.product.products);
   const filteredProducts = useSelector((state) => state.product.filteredProducts);
-  const pageTitle = useMemo(() => {
-    return PAGE_TITLE[query.get('query')] || PAGE_TITLE.all;
-  }, [query.get('query')]);
+  const pageTitle = useMemo(() => PAGE_TITLE[query.get('query')] || PAGE_TITLE.all, [query.get('query')]);
   const pageSubTitle = PAGE_SUBTITLE[query.get('query')] || PAGE_SUBTITLE.all;
   const pageDescription = PAGE_DESCRIPTION[query.get('query')] || PAGE_DESCRIPTION.all;
 
+  const currencyFormat = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+
   const getStatus = (product) => {
-    return product.promocao || product.exclusivo;
+    if (product.promocao) {
+      return PRODUCT_STATUS.PROMOTION;
+    }
+    if (product.exclusivo) {
+      return PRODUCT_STATUS.EXCLUSIVE;
+    }
+    return '';
   };
 
   const setFavoriteProduct = (productId) => {
@@ -89,11 +96,11 @@ function ProductsList() {
             id={product.id}
             key={product.id}
             getStatus={() => getStatus(product)}
-            value={product.valor}
+            value={currencyFormat(product.valor)}
             setFavoriteProduct={setFavoriteProduct}
             isFavorite={product.isFavorite}
             productDescription={product.decricaoCurta}
-            product={product}
+            name={product.nome}
             img={product.imagem}
           />
         ))}
