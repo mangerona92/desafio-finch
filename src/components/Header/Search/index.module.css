@@ -1,4 +1,5 @@
 .search {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 20px;
   padding: 4px 10px 4px 10px;
   background: #fff;
@@ -12,6 +13,7 @@
 .searchInput{
     background: transparent;
     box-shadow: none;
+    margin-left: 35px;
     font-size: 14px;
     border: 0px;
     width: 320px;
@@ -20,4 +22,14 @@
     z-index: 20000;
     top: 0px;
     padding: 0px 0px 0px 7px;
+}
+
+.searchInput:focus{
+  outline: none;
+}
+
+.iconLoupe {
+  position: absolute;
+  border-right: 1px solid;
+  padding: 3px 8px 3px 3px;
 }
