@@ -23,7 +23,6 @@
 }
 
 .btnReturn {
-  height: 100%;
   border: none;
   cursor: pointer;
   border-right: 1px solid #b59a9a;
@@ -179,4 +178,16 @@ input:checked + .slider:before {
   background: red;
   background: transparent linear-gradient(125deg, #EF0E5A 0%, #55118F 100%) 0% 0% no-repeat padding-box;
   opacity: 1;
+}
+
+.btnReturnDiv {
+  position: absolute;
+  margin: 0;
+  height: 35px;
+  align-self: center;
+  margin-left: 672px;
+}
+
+.contLeft {
+  display: flex;
 }

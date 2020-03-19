@@ -1,17 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { setProductsList, setFilteredProductsList } from '../../store/ducks/product';
+import { requesterService } from '../../services';
 import styles from './index.module.css';
 import returnicon from '../../assets/returnicon.png';
-import phonelarge from '../../assets/phonelarge.png';
 import Search from '../../components/Header/Search';
 
 function ProductsDetails() {
+  function handlerClick() {
+    setFavoriteProduct(product.id);
+  }
+  const dispatch = useDispatch();
   const params = useParams();
   const products = useSelector((state) => state.product.products);
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState({});
   useEffect(() => {
-    setProduct(products.find((p) => p.id === parseInt(params.productId, 10)));
+    if (!products.length) {
+      requesterService.get('/v2/5d3b57023000005500a2a0a6')
+        .then((res) => {
+          const pdt = res.produtos.map((p) => ({ ...p, isFavorite: false }));
+          dispatch(setProductsList(pdt));
+          dispatch(setFilteredProductsList(pdt));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+  const setFavoriteProduct = (productId) => {
+    const pdt = products.map((p) => {
+      if (p.id === productId) {
+        return { ...p, isFavorite: !p.isFavorite };
+      }
+      return p;
+    });
+    dispatch(setProductsList(pdt));
+  };
+  useEffect(() => {
+    const test = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
+    console.log(test, products);
+    setProduct(test);
   }, [products]);
   return (
     <>
@@ -20,15 +49,16 @@ function ProductsDetails() {
           <div>
             <div className={styles.product}>
               <h2>
-                product
+                {product.nome}
               </h2>
               <h2 className={styles.price}>
                 -
-                R$ 198,00
+                R$
+                {product.valor}
               </h2>
               <div className={styles.btnFavorites}>
-                <label htmlFor="favorite" className={styles.switch}>
-                  <input id="favorite" type="checkbox" />
+                <label htmlFor={product.id} className={styles.switch}>
+                  <input id={product.id} onClick={handlerClick} type="checkbox" />
                   <span className={`${styles.slider} ${styles.round}`} />
                 </label>
                 <span className={styles.textFavorites}>
@@ -37,12 +67,12 @@ function ProductsDetails() {
               </div>
             </div>
             <span className={styles.description}>
-              Aparelho intra auricular de som em alta definição sem fio para os viciados de plantão
+              {product.decricaoCurta}
             </span>
           </div>
-          <div>
-            <div>
-              <button type="submit" className={styles.btnReturn}>
+          <div className={styles.contLeft}>
+            <div className={styles.btnReturnDiv}>
+              <button onClick={() => window.history.back()} type="submit" className={styles.btnReturn}>
                 <img className={styles.test} src={returnicon} alt="icone de retorno" />
               </button>
             </div>
@@ -54,7 +84,7 @@ function ProductsDetails() {
           <div className={styles.card}>
             <div>
               <div className={styles.imageContainer}>
-                <img className={styles.imageProduct} src={phonelarge} alt="imagem fone" />
+                <img className={styles.imageProduct} src={product.imagem} alt="imagem do produto" />
                 <div className={styles.imageTag}>
                   <span>
                     Promoção
@@ -68,7 +98,7 @@ function ProductsDetails() {
               Detalhes Do Produto
             </h2>
             <span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {product.descricaoLonga}
             </span>
           </div>
         </div>
@@ -80,18 +110,6 @@ function ProductsDetails() {
         <hr className={styles.hrStyle} />
         <div className={styles.contentListToken}>
           <div className={styles.listToken}>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
-            <li>
-              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
-            </li>
             <li>
               Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
             </li>
