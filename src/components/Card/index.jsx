@@ -2,43 +2,57 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
+import { PRODUCT_STATUS } from '../../enum';
 
 function Card({
-  getStatus, value, setFavoriteProduct, product, productDescription, img,
+  id, name, getStatus, value, setFavoriteProduct, productDescription, img,
 }) {
-  function handlerClick() {
-    setFavoriteProduct(product.id);
-  }
+  const handlerClick = () => {
+    setFavoriteProduct(id);
+  };
+
+  const setStatusClass = () => {
+    if (PRODUCT_STATUS.PROMOTION === getStatus()) {
+      return styles.imageTagPromotion;
+    }
+
+    if (PRODUCT_STATUS.EXCLUSIVE === getStatus()) {
+      return styles.imageTagExclusive;
+    }
+    return '';
+  };
   return (
     <>
       <div className={styles.card}>
         <div className={styles.imageContainer}>
-          <Link key={product.id} className={styles.linkCard} to={`/product-details/${product.id}`}>
+          <Link key={id} className={styles.linkCard} to={`/product-details/${id}`}>
             <img className={styles.imageProduct} src={img} alt="imagem fone" />
           </Link>
-          <div className={styles.imageTag}>
+          <div className={setStatusClass()}>
             <span>
               { getStatus() }
             </span>
           </div>
         </div>
         <div className={styles.container}>
-          <h4 className={styles.divValue}>
-            <b className={styles.textValue}>
-              { value }
-            </b>
+          <div className={styles.divValue}>
+            <span>
+              <b className={styles.textValue}>
+                { value }
+              </b>
+            </span>
             <div className={styles.btnFavorites}>
-              <label htmlFor={product.id} className={styles.switch}>
-                <input id={product.id} onClick={handlerClick} type="checkbox" />
+              <label htmlFor={id} className={styles.switch}>
+                <input id={id} onClick={handlerClick} type="checkbox" />
                 <span className={`${styles.slider} ${styles.round}`} />
               </label>
               <span className={styles.textFavorites}>
                 tornar favoritos
               </span>
             </div>
-          </h4>
+          </div>
           <h2 className={styles.productText}>
-            { product.nome }
+            { name }
           </h2>
           <div className={styles.textFavorites}>
             { productDescription }
@@ -49,17 +63,12 @@ function Card({
   );
 }
 
-Card.defaultProps = {
-  isFavorite: false,
-};
-
 Card.propTypes = {
   id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   getStatus: PropTypes.func.isRequired,
   value: PropTypes.number.isRequired,
-  isFavorite: PropTypes.bool,
   setFavoriteProduct: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
   productDescription: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
 };

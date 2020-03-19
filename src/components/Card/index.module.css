@@ -24,7 +24,7 @@
   height: 100%;
 }
 
-.imageTag {
+.imageTagPromotion {
   position: absolute;
   width: 107px;
   height: 27px;
@@ -41,6 +41,23 @@
   opacity: 1;
 }
 
+.imageTagExclusive {
+  position: absolute;
+  width: 107px;
+  height: 27px;
+  line-height: 30px;
+  text-transform: capitalize;
+  text-align: center;
+  bottom: 0;
+  right: 0;
+  font-size: 13px;
+  font-weight: 100;
+  color: #FFFF;
+  background: blue;
+  background: transparent linear-gradient(125deg, #1DB6CE 0%, #182AC9 100%) 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
@@ -52,13 +69,14 @@
 
 
 .divValue {
-  height: 10px;
+  height: 30px;
+  display: flex;
 }
 
 .btnFavorites{
-  display: inline;
+  display: flex;
   border: none;
-  margin-left: 28%;
+  margin-left: 22%;
 }
 
 .tagProducts {
@@ -90,6 +108,7 @@
 }
 
 .switch {
+  margin-top: 6px;
   position: relative;
   display: table-caption;
   width: 40px;
