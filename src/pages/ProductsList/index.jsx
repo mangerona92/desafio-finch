@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { setProductsList, setFilteredProductsList } from '../../store/ducks/product';
 import { requesterService } from '../../services';
 import styles from './index.module.css';
@@ -18,9 +18,12 @@ export const useQuery = () => new URLSearchParams(useLocation().search);
 function ProductsList() {
   const dispatch = useDispatch();
   const query = useQuery();
+  const location = useLocation();
   const products = useSelector((state) => state.product.products);
   const filteredProducts = useSelector((state) => state.product.filteredProducts);
-  const pageTitle = PAGE_TITLE[query.get('query')] || PAGE_TITLE.all;
+  const pageTitle = useMemo(() => {
+    return PAGE_TITLE[query.get('query')] || PAGE_TITLE.all;
+  }, [query.get('query')]);
   const pageSubTitle = PAGE_SUBTITLE[query.get('query')] || PAGE_SUBTITLE.all;
   const pageDescription = PAGE_DESCRIPTION[query.get('query')] || PAGE_DESCRIPTION.all;
 
@@ -29,15 +32,13 @@ function ProductsList() {
   };
 
   const setFavoriteProduct = (productId) => {
-    console.log(productId);
-    // const pdt = products.map((p) => {
-    //   if (p.id === productId) {
-    //     return { ...p, isFavorite: !p.isFavorite };
-    //   }
-    //   return p;
-    // });
-
-    // dispatch(setProductsList(pdt));
+    const pdt = products.map((p) => {
+      if (p.id === productId) {
+        return { ...p, isFavorite: !p.isFavorite };
+      }
+      return p;
+    });
+    dispatch(setProductsList(pdt));
   };
 
   useEffect(() => {
@@ -49,7 +50,6 @@ function ProductsList() {
           dispatch(setFilteredProductsList(pdt));
         })
         .catch((error) => {
-          // TODO: Fazer toast
           console.log(error);
         });
     }
@@ -70,7 +70,7 @@ function ProductsList() {
         dispatch(setFilteredProductsList(products));
         break;
     }
-  }, [pageTitle]);
+  }, [location]);
 
   return (
     <div>
@@ -84,19 +84,18 @@ function ProductsList() {
       </div>
       <hr className={styles.hrStyle} />
       <div className={styles.containerProductsList}>
-        {products.map((product) => (
-          <Link key={product.id} className={styles.linkCard} to={`/product-details/${product.id}`}>
-            <Card
-              id={product.id}
-              getStatus={() => getStatus(product)}
-              value={product.valor}
-              setFavoriteProduct={(productId) => setFavoriteProduct(productId)}
-              isFavorite={product.isFavorite}
-              productDescription={product.decricaoCurta}
-              product={product.nome}
-              img={product.imagem}
-            />
-          </Link>
+        {filteredProducts.map((product) => (
+          <Card
+            id={product.id}
+            key={product.id}
+            getStatus={() => getStatus(product)}
+            value={product.valor}
+            setFavoriteProduct={setFavoriteProduct}
+            isFavorite={product.isFavorite}
+            productDescription={product.decricaoCurta}
+            product={product}
+            img={product.imagem}
+          />
         ))}
       </div>
     </div>

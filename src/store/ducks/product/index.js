@@ -11,7 +11,6 @@ export const Types = {
 
 // Action Creators
 export function setProductsList(products) {
-  console.log('camou products', products);
   return {
     type: Types.SET_PRODUCTS_LIST,
     payload: products,
@@ -19,12 +18,12 @@ export function setProductsList(products) {
 }
 
 export function setFilteredProductsList(filteredProducts) {
-  console.log('chamou filtered', filteredProducts);
   return {
-    type: Types.SET_PRODUCTS_LIST,
+    type: Types.SET_FILTERED_PRODUCTS_LIST,
     payload: filteredProducts,
   };
 }
+
 
 // Reducer
 export default function reducer(state = initialState, action) {

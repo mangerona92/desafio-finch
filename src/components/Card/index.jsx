@@ -1,16 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
 
-function Card(props) {
-  const {
-    id, getStatus, value, isFavorite, setFavoriteProduct, product, productDescription, img,
-  } = props;
+function Card({
+  getStatus, value, setFavoriteProduct, product, productDescription, img,
+}) {
+  function handlerClick() {
+    setFavoriteProduct(product.id);
+  }
   return (
     <>
       <div className={styles.card}>
         <div className={styles.imageContainer}>
-          <img className={styles.imageProduct} src={img} alt="imagem fone" />
+          <Link key={product.id} className={styles.linkCard} to={`/product-details/${product.id}`}>
+            <img className={styles.imageProduct} src={img} alt="imagem fone" />
+          </Link>
           <div className={styles.imageTag}>
             <span>
               { getStatus() }
@@ -23,17 +28,17 @@ function Card(props) {
               { value }
             </b>
             <div className={styles.btnFavorites}>
-              <label htmlFor="favorite" className={styles.switch}>
-                <input id="favorite" onClick={setFavoriteProduct(id)} type="checkbox" />
+              <label htmlFor={product.id} className={styles.switch}>
+                <input id={product.id} onClick={handlerClick} type="checkbox" />
                 <span className={`${styles.slider} ${styles.round}`} />
               </label>
               <span className={styles.textFavorites}>
-                { isFavorite }
+                tornar favoritos
               </span>
             </div>
           </h4>
           <h2 className={styles.productText}>
-            { product }
+            { product.nome }
           </h2>
           <div className={styles.textFavorites}>
             { productDescription }
@@ -54,7 +59,7 @@ Card.propTypes = {
   value: PropTypes.number.isRequired,
   isFavorite: PropTypes.bool,
   setFavoriteProduct: PropTypes.func.isRequired,
-  product: PropTypes.string.isRequired,
+  product: PropTypes.object.isRequired,
   productDescription: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
 };
