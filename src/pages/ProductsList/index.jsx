@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { setProductsList, setFilteredProductsList } from '../../store/ducks/product';
 import { requesterService } from '../../services';
 import styles from './index.module.css';
@@ -20,6 +20,7 @@ function ProductsList() {
   const dispatch = useDispatch();
   const query = useQuery();
   const location = useLocation();
+  const history = useHistory();
   const products = useSelector((state) => state.product.products);
   const filteredProducts = useSelector((state) => state.product.filteredProducts);
   const pageTitle = useMemo(() => PAGE_TITLE[query.get('query')] || PAGE_TITLE.all, [query.get('query')]);
@@ -48,6 +49,12 @@ function ProductsList() {
     dispatch(setProductsList(pdt));
   };
 
+  const searchProducts = (valueToSearch) => {
+    if (valueToSearch) {
+      history.push(`/?query=${valueToSearch}`);
+    }
+  };
+
   useEffect(() => {
     if (!products.length) {
       requesterService.get('/v2/5d3b57023000005500a2a0a6')
@@ -63,20 +70,33 @@ function ProductsList() {
   }, []);
 
   useEffect(() => {
-    switch (query.get('query')) {
+    let newProductsList;
+    switch (query.get('page')) {
       case 'exclusives':
-        dispatch(setFilteredProductsList(products.filter((p) => p.exclusivo)));
+        newProductsList = products.filter((p) => p.exclusivo);
         break;
       case 'promotion':
-        dispatch(setFilteredProductsList(products.filter((p) => p.promocao)));
+        newProductsList = products.filter((p) => p.promocao);
         break;
       case 'favorites':
-        dispatch(setFilteredProductsList(products.filter((p) => p.isFavorite)));
+        newProductsList = products.filter((p) => p.isFavorite);
         break;
       default:
-        dispatch(setFilteredProductsList(products));
+        newProductsList = products;
         break;
     }
+
+    const queryFilter = query.get('query');
+
+    if (queryFilter) {
+      newProductsList = newProductsList.filter((p) => {
+        return (p.nome.indexOf(queryFilter) !== -1)
+        || (p.decricaoCurta.indexOf(queryFilter) !== -1)
+        || (p.descricaoLonga.indexOf(queryFilter) !== -1);
+      });
+    }
+
+    dispatch(setFilteredProductsList(newProductsList));
   }, [location]);
 
   return (
@@ -87,7 +107,7 @@ function ProductsList() {
           subTitle={pageSubTitle}
           description={pageDescription}
         />
-        <Search />
+        <Search search={(q) => searchProducts(q)} />
       </div>
       <hr className={styles.hrStyle} />
       <div className={styles.containerProductsList}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { setProductsList, setFilteredProductsList } from '../../store/ducks/product';
 import { requesterService } from '../../services';
 import styles from './index.module.css';
@@ -10,6 +10,7 @@ import Search from '../../components/Header/Search';
 function ProductsDetails() {
   const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory();
   const products = useSelector((state) => state.product.products);
   const [product, setProduct] = useState({});
 
@@ -33,6 +34,12 @@ function ProductsDetails() {
     const test = products.find((p) => p.id === parseInt(params.productId, 10)) || {};
     setProduct(test);
   }, [products]);
+
+  const searchProducts = (valueToSearch) => {
+    if (valueToSearch) {
+      history.push(`/?query=${valueToSearch}`);
+    }
+  };
 
   const setFavoriteProduct = (productId) => {
     const pdt = products.map((p) => {
@@ -63,7 +70,7 @@ function ProductsDetails() {
               </h2>
               <div className={styles.btnFavorites}>
                 <label htmlFor={product.id} className={styles.switch}>
-                  <input id={product.id} onClick={handlerClick} type="checkbox" />
+                  <input id={product.id} onClick={handlerClick} type="checkbox" value={product.isFavorite} />
                   <span className={`${styles.slider} ${styles.round}`} />
                 </label>
                 <span className={styles.textFavorites}>
@@ -81,7 +88,7 @@ function ProductsDetails() {
                 <img className={styles.test} src={returnicon} alt="icone de retorno" />
               </button>
             </div>
-            <Search />
+            <Search search={(q) => searchProducts(q)} />
           </div>
         </div>
         <hr className={styles.hrStyle} />

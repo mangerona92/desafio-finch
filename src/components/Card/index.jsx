@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import { PRODUCT_STATUS } from '../../enum';
 
 function Card({
-  id, name, getStatus, value, setFavoriteProduct, productDescription, img,
+  id, name, getStatus, value, isFavorite, setFavoriteProduct, productDescription, img,
 }) {
   const handlerClick = () => {
     setFavoriteProduct(id);
@@ -43,7 +43,7 @@ function Card({
             </span>
             <div className={styles.btnFavorites}>
               <label htmlFor={id} className={styles.switch}>
-                <input id={id} onClick={handlerClick} type="checkbox" />
+                <input id={id} onClick={handlerClick} type="checkbox" value={isFavorite} />
                 <span className={`${styles.slider} ${styles.round}`} />
               </label>
               <span className={styles.textFavorites}>
@@ -63,11 +63,16 @@ function Card({
   );
 }
 
+Card.defaultProps = {
+  isFavorite: false,
+};
+
 Card.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   getStatus: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool,
   setFavoriteProduct: PropTypes.func.isRequired,
   productDescription: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,

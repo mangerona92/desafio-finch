@@ -19,28 +19,28 @@ const Menu = () => (
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/?query=all">
+          <Link className={styles.linkMenu} to="/?page=all">
             <img src={supplies} alt="Listar Todos os Produtos" className={styles.iconMenu} />
             <p className={styles.textMenu}>Todos</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/?query=exclusives">
+          <Link className={styles.linkMenu} to="/?page=exclusives">
             <img src={box} alt="Listar os Itens Exclusivos" className={styles.iconMenu} />
             <p className={styles.textMenu}>Exclusivos</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/?query=promotion">
+          <Link className={styles.linkMenu} to="/?page=promotion">
             <img src={gift} alt="Mostrar Promoções" className={styles.iconMenu} />
             <p className={styles.textMenu}>Promoção</p>
           </Link>
         </div>
         <hr className={styles.text} />
         <div className={styles.menuItem}>
-          <Link className={styles.linkMenu} to="/?query=favorites">
+          <Link className={styles.linkMenu} to="/?page=favorites">
             <img src={recommended} alt="Favoritos" className={styles.iconMenu} />
             <p className={styles.textMenu}>Favoritos</p>
           </Link>

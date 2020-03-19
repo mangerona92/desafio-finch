@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { DebounceInput } from 'react-debounce-input';
 import styles from './index.module.css';
 
 function Search(props) {
   const { search } = props;
+  const [input, setInput] = useState('');
+
+  const onChangeValue = (evt) => {
+    setInput(evt.target.value);
+  };
+
+  useEffect(() => {
+    search(input);
+  }, [input]);
+
   return (
     <>
       <div className={styles.search}>
         <form>
-          <input type="search" placeholder="Buscar" className={styles.searchInput} />
+          <DebounceInput debounceTimeout={1000} onChange={onChangeValue} type="search" placeholder="Buscar" className={styles.searchInput} />
           { search }
         </form>
       </div>
@@ -16,12 +27,8 @@ function Search(props) {
   );
 }
 
-Search.defaultProps = {
-  search: '',
-};
-
 Search.propTypes = {
-  search: PropTypes.string,
+  search: PropTypes.func.isRequired,
 };
 
 export default Search;
