@@ -12,10 +12,10 @@ function Routes() {
   return (
     <div className={styles.container}>
       <Switch>
-        <Route path="/">
+        <Route path="/product-details/:productId">
           <ProductsDetailsPage />
         </Route>
-        <Route path="/product-details">
+        <Route path="/">
           <ProductsListPage />
         </Route>
       </Switch>

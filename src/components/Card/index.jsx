@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
-import phone from '../../assets/phone.png';
 
 function Card(props) {
-  const { status, value, favorite, product, productDescription } = props;
+  const {
+    id, getStatus, value, isFavorite, setFavoriteProduct, product, productDescription, img,
+  } = props;
   return (
     <>
       <div className={styles.card}>
         <div className={styles.imageContainer}>
-          <img className={styles.imageProduct} src={phone} alt="imagem fone" />
+          <img className={styles.imageProduct} src={img} alt="imagem fone" />
           <div className={styles.imageTag}>
             <span>
-              { status }
+              { getStatus() }
             </span>
           </div>
         </div>
@@ -22,12 +23,12 @@ function Card(props) {
               { value }
             </b>
             <div className={styles.btnFavorites}>
-              <label for="favorite" className={styles.switch}>
-                <input id="favorite" type="checkbox" />
+              <label htmlFor="favorite" className={styles.switch}>
+                <input id="favorite" onClick={setFavoriteProduct(id)} type="checkbox" />
                 <span className={`${styles.slider} ${styles.round}`} />
               </label>
               <span className={styles.textFavorites}>
-                { favorite }
+                { isFavorite }
               </span>
             </div>
           </h4>
@@ -43,12 +44,19 @@ function Card(props) {
   );
 }
 
+Card.defaultProps = {
+  isFavorite: false,
+};
+
 Card.propTypes = {
-  status: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  favorite: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  getStatus: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
+  isFavorite: PropTypes.bool,
+  setFavoriteProduct: PropTypes.func.isRequired,
   product: PropTypes.string.isRequired,
   productDescription: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
 };
 
 export default Card;

@@ -9,14 +9,19 @@ function Search(props) {
       <div className={styles.search}>
         <form>
           <input type="search" placeholder="Buscar" className={styles.searchInput} />
+          { search }
         </form>
       </div>
     </>
   );
 }
 
+Search.defaultProps = {
+  search: '',
+};
+
 Search.propTypes = {
-  search: PropTypes.string.isRequired,
+  search: PropTypes.string,
 };
 
 export default Search;

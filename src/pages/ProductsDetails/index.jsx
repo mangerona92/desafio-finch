@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styles from './index.module.css';
 import returnicon from '../../assets/returnicon.png';
 import phonelarge from '../../assets/phonelarge.png';
 import Search from '../../components/Header/Search';
 
 function ProductsDetails() {
+  const params = useParams();
+  const products = useSelector((state) => state.product.products);
+  const [product, setProduct] = useState();
+  useEffect(() => {
+    setProduct(products.find((p) => p.id === parseInt(params.productId, 10)));
+  }, [products]);
   return (
     <>
       <div>
@@ -12,14 +20,14 @@ function ProductsDetails() {
           <div>
             <div className={styles.product}>
               <h2>
-                Fone Bluetooth XPTO
+                product
               </h2>
               <h2 className={styles.price}>
                 -
                 R$ 198,00
               </h2>
               <div className={styles.btnFavorites}>
-                <label for="favorite" className={styles.switch}>
+                <label htmlFor="favorite" className={styles.switch}>
                   <input id="favorite" type="checkbox" />
                   <span className={`${styles.slider} ${styles.round}`} />
                 </label>
@@ -62,6 +70,34 @@ function ProductsDetails() {
             <span>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </span>
+          </div>
+        </div>
+        <div className={styles.contentToken}>
+          <h2>
+            Ficha Técnica
+          </h2>
+        </div>
+        <hr className={styles.hrStyle} />
+        <div className={styles.contentListToken}>
+          <div className={styles.listToken}>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
+            <li>
+              Lorem sdgfagdfgfdsagdfsgdfsg dfsg dfsgfdsgfdsgdfs gdfs gdfsgdfsg dfs
+            </li>
           </div>
         </div>
       </div>

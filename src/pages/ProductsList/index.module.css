@@ -16,3 +16,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.linkCard {
+  text-decoration:none;
+}

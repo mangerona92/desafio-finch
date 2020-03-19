@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, Link } from 'react-router-dom';
+import { setProductsList, setFilteredProductsList } from '../../store/ducks/product';
+import { requesterService } from '../../services';
 import styles from './index.module.css';
 import Title from '../../components/Header/Title';
 import Search from '../../components/Header/Search';
@@ -7,39 +11,93 @@ import {
   PAGE_TITLE,
   PAGE_SUBTITLE,
   PAGE_DESCRIPTION,
-  PAGE_STATUS,
-  PAGE_VALUE,
-  PAGE_FAVORITE,
-  PAGE_PRODUCTSDESCRIPTION,
-  PAGE_PRODUCT,
 } from '../../enum';
-import { useQuery } from '../../hooks';
+
+export const useQuery = () => new URLSearchParams(useLocation().search);
 
 function ProductsList() {
-  const query = useQuery;
-  const getTitle = () => PAGE_TITLE[query().get('query')] || PAGE_TITLE.all;
-  const getSubTitle = () => PAGE_SUBTITLE[query().get('query')] || PAGE_SUBTITLE.all;
-  const getDescription = () => PAGE_DESCRIPTION[query().get('query')] || PAGE_DESCRIPTION.all;
-  const getStatus = () => PAGE_STATUS.status;
-  const getValue = () => PAGE_VALUE.value;
-  const getFavorite = () => PAGE_FAVORITE.favorite;
-  const getProduct = () => PAGE_PRODUCT.product;
-  const getProductDescription = () => PAGE_PRODUCTSDESCRIPTION.productDescription;
+  const dispatch = useDispatch();
+  const query = useQuery();
+  const products = useSelector((state) => state.product.products);
+  const filteredProducts = useSelector((state) => state.product.filteredProducts);
+  const pageTitle = PAGE_TITLE[query.get('query')] || PAGE_TITLE.all;
+  const pageSubTitle = PAGE_SUBTITLE[query.get('query')] || PAGE_SUBTITLE.all;
+  const pageDescription = PAGE_DESCRIPTION[query.get('query')] || PAGE_DESCRIPTION.all;
+
+  const getStatus = (product) => {
+    return product.promocao || product.exclusivo;
+  };
+
+  const setFavoriteProduct = (productId) => {
+    console.log(productId);
+    // const pdt = products.map((p) => {
+    //   if (p.id === productId) {
+    //     return { ...p, isFavorite: !p.isFavorite };
+    //   }
+    //   return p;
+    // });
+
+    // dispatch(setProductsList(pdt));
+  };
+
+  useEffect(() => {
+    if (!products.length) {
+      requesterService.get('/v2/5d3b57023000005500a2a0a6')
+        .then((res) => {
+          const pdt = res.produtos.map((p) => ({ ...p, isFavorite: false }));
+          dispatch(setProductsList(pdt));
+          dispatch(setFilteredProductsList(pdt));
+        })
+        .catch((error) => {
+          // TODO: Fazer toast
+          console.log(error);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    switch (query.get('query')) {
+      case 'exclusives':
+        dispatch(setFilteredProductsList(products.filter((p) => p.exclusivo)));
+        break;
+      case 'promotion':
+        dispatch(setFilteredProductsList(products.filter((p) => p.promocao)));
+        break;
+      case 'favorites':
+        dispatch(setFilteredProductsList(products.filter((p) => p.isFavorite)));
+        break;
+      default:
+        dispatch(setFilteredProductsList(products));
+        break;
+    }
+  }, [pageTitle]);
+
   return (
     <div>
       <div className={styles.productList}>
-        <Title title={getTitle()} subTitle={getSubTitle()} description={getDescription()} />
+        <Title
+          title={pageTitle}
+          subTitle={pageSubTitle}
+          description={pageDescription}
+        />
         <Search />
       </div>
       <hr className={styles.hrStyle} />
       <div className={styles.containerProductsList}>
-        <Card
-          status={getStatus()}
-          value={getValue()}
-          favorite={getFavorite()}
-          productDescription={getProductDescription()}
-          product={getProduct()}
-        />
+        {products.map((product) => (
+          <Link key={product.id} className={styles.linkCard} to={`/product-details/${product.id}`}>
+            <Card
+              id={product.id}
+              getStatus={() => getStatus(product)}
+              value={product.valor}
+              setFavoriteProduct={(productId) => setFavoriteProduct(productId)}
+              isFavorite={product.isFavorite}
+              productDescription={product.decricaoCurta}
+              product={product.nome}
+              img={product.imagem}
+            />
+          </Link>
+        ))}
       </div>
     </div>
 

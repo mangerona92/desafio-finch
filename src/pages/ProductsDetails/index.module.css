@@ -35,6 +35,23 @@
   width: 1280px;
 }
 
+.contentToken {
+  margin-left: 65px;
+  margin-top: 26px;
+}
+
+.contentListToken {
+  margin-left: 65px;
+  margin-top: 35px;
+}
+
+.listToken {
+  margin-left: 5px;
+  font-weight: 200;
+  color: #8E879E;
+  margin-top: 5px;
+}
+
 .textFavorites{
   margin-left: 5px;
   font-weight: 100;
